@@ -1,0 +1,88 @@
+<h2>Bienvenido a Critical ACHIVE</h2>
+ <div>
+  <% if signed_in? %>
+    <h3>Hola <%=current_user.name%></h3>
+    <p id="notice"><%= notice %></p>
+
+    <!-- Shell -->
+    <div id="shell">
+    <!-- Header -->
+    <div id="header">
+       <div class="social">
+        <span>FOLLOW US ON:</span>
+        <ul>
+            <li><a class="twitter" href="#">twitter</a></li>
+            <li><a class="facebook" href="#">facebook</a></li>
+            <li><a class="vimeo" href="#">vimeo</a></li>
+            <li><a class="rss" href="#">rss</a></li>
+        </ul>
+      </div>
+
+      <!-- Navigation -->
+
+      <!-- end Navigation -->
+
+      <!-- Sub-menu -->
+      <div id="sub-navigation">
+        <ul>
+            <li><a href="#">SHOW ALL</a></li>
+            <li><a href="#">LATEST TRAILERS</a></li>
+            <li><a href="#">TOP RATED</a></li>
+            <li><a href="#">MOST COMMENTED</a></li>
+        </ul>
+        <div id="search">
+          <form action="home_submit" method="get" accept-charset="utf-8">
+            <label for="search-field">SEARCH</label>
+            <input type="text" name="search field" value="Enter search here" id="search-field" title="Enter search here" class="blink search-field"  />
+            <input type="submit" value="GO!" class="search-button" />
+          </form>
+        </div>
+      </div>
+      <!-- end Sub-Menu -->
+
+    </div>
+    <!-- end Header -->
+    <nav>
+      <h2>Peliculas</h2>
+<%= link_to items_url(:type =>0)  do %><%= image_tag("banner_movies.jpg", :alt => "rss feed", :class => "card-body") %><% end %><br/>
+<h2>Series</h2>
+<%= link_to items_url(:type =>1)  do %><%= image_tag("banner_series.jpg", :alt => "rss feed", :class => "card-body") %><% end %><br/>
+<h2>Musica</h2>
+<%= link_to items_url(:type =>3)  do %><%= image_tag("banner_music.jpg", :alt => "rss feed", :class => "card-body") %><% end %>
+
+    </nav>
+    <%= link_to "Cerrar sesion", destroy_user_session_path, method: :delete %>
+  <% else %>
+
+  <div class="container">
+      <h2>Log in</h2>
+
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <div class="field">
+      <%= f.label :email %><br />
+      <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :password %><br />
+      <%= f.password_field :password, autocomplete: "current-password" %>
+    </div>
+
+    <% if devise_mapping.rememberable? -%>
+      <div class="field">
+        <%= f.check_box :remember_me %>
+        <%= f.label :remember_me %>
+      </div>
+    <% end -%>
+
+    <div class="actions">
+      <%= f.submit "Log in" %>
+    </div>
+  <% end %>
+
+
+    <%= link_to "Registrarse", new_user_registration_path %>
+
+
+  <% end %>
+</div>

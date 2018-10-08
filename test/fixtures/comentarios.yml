@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id=references: MyString
+  item_id=references: MyString
+  comentario_txt=String: MyString
+
+two:
+  user_id=references: MyString
+  item_id=references: MyString
+  comentario_txt=String: MyString

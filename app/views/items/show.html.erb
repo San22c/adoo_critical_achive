@@ -1,0 +1,112 @@
+<p id="notice"><%= notice %></p>
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Blog Post - Start Bootstrap Template</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/blog-post.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <!-- Navigation -->
+
+    <!-- Page Content -->
+    <div class="container">
+
+      <div class="row">
+
+        <!-- Post Content Column -->
+        <div class="col-lg-8">
+
+          <!-- Title -->
+          <h1 class="mt-4"><%= @item.title %></h1>
+
+          <!-- Author -->
+          <p class="lead">
+            by
+            <%= @item.director %>
+          </p>
+
+          <hr>
+
+
+
+          <hr>
+
+          <!-- Preview Image -->
+     <%= image_tag(@item.id.to_s + ".jpg", :alt => "rss feed", :class => "img-fluid rounded") %>
+          <hr>
+
+          <!-- Post Content -->
+          <p class="lead"><%= @item.description %></p>
+
+          <blockquote class="blockquote">
+            <p class="mb-0">Año: <%= @item.year %></p>
+            <p class="mb-0">Duracion: <%= @item.duration %> min</p>
+            <p class="mb-0">URL: <%= @item.link %></p>
+          </blockquote>
+
+          <%= link_to "Nuevo Comentario", new_comentario_path(:user => current_user, :item=>@item ) %>
+
+          <hr>
+
+
+          <!-- Comments Form -->
+          <% @comentarios_aux = Comentario.where(:item_id =>@item.id )%>
+          <% @comentarios_aux.each do |coment| %>
+            <%@usuario = User.find_by(id:coment.user_id)%>
+
+          <div class="media mb-4">
+            <%if @usuario.role = "N"%>
+             <%= image_tag("user.jpg", size: "40x40", :alt => "rss feed", :class => "d-flex mr-3 rounded-circle") %>
+             <%else%>
+             <%= image_tag("user_pro.jpg",size: "40x40", :alt => "rss feed", :class => "d-flex mr-3 rounded-circle") %>
+            <%end%>
+            <div class="media-body">
+
+              <h5 class="mt-0"><%=@usuario.name%></h5>
+           <%=coment.comentario_txt%>
+         </div>
+      </div>
+      <%end%>
+
+        </div>
+
+      </div>
+      <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; Adoo2018</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  </body>
+
+</html>
+
+
+
+<%= link_to 'Back', items_path %>
